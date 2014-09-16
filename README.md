@@ -19,3 +19,6 @@ This repository contains **Dockerbase** of [Devbase-jdk](http://www.oracle.com/t
 ### Usage
 
     docker run -it --rm --name dockerbase-devbase-jdk dockerbase/devbase-jdk
+
+### Information
+[Components & Versions](https://github.com/dockerbase/devbase-jdk/blob/master/COMPONENTS)
