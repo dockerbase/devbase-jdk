@@ -1,5 +1,5 @@
 NAME = dockerbase/devbase-jdk
-VERSION = 1.0
+VERSION = 1.1
 
 .PHONY: all build test tag_latest release ssh enter
 
@@ -23,8 +23,13 @@ ls_volume:
 
 version:
 	docker run -it --rm $(NAME):$(VERSION) sh -c " lsb_release -d ; git --version ; ruby -v ; ssh -V ; make -v " | tee COMPONENTS
-	docker run -it --rm $(NAME):$(VERSION) sh -c " . /home/devbase/.bashrc; javac -version ; java -version " | tee -a COMPONENTS
+	docker run -it --rm $(NAME):$(VERSION) sh -c " javac -version ; java -version " | tee -a COMPONENTS
 	dos2unix COMPONENTS
+	sed -i -e 's/^/    /' COMPONENTS
+	sed -i -e '/^### Components & Versions/q' README.md
+	echo >> README.md
+	cat COMPONENTS >> README.md
+	rm COMPONENTS
 
 tag_latest:
 	docker tag $(NAME):$(VERSION) $(NAME):latest
